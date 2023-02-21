@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        body {
+            /* background-image: url('images/goodmorning.jpg'); */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .container-fluid {
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid w-100 d-flex justify-content-center  align-items-center flex-column" id="container">
+        <!-- <div class="clock text-center "> -->
+        <h1 id="time" class="display-2 text-white fw-bolder"></h1>
+        <h1 id="date1" class="text-white"></h1>
+        <h1 id="greetings" class="text-white fw-bolder"></h1>
+        <!-- </div> -->
+    </div>
+</body>
+
+<script>
+    var time = document.getElementById('time'),
+        date1 = document.getElementById("date1"),
+        // body = document.queryselector("body"),
+        container = document.getElementById("container"),
+        greeting = document.getElementById("greetings");
+
+    const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    function newtime() {
+        var date = new Date();
+        let hr = date.getHours();
+        let min = date.getMinutes();
+        let sec = date.getSeconds();
+        let get_date = date.getDate();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = weekday[date.getDay()];
+        let ampm = "AM";
+
+        if (hr >= 5 && hr <= 11.59) {
+            greeting.innerHTML = "Good Morning";
+            document.body.style.backgroundImage = "url('images/goodmorning.jpg')";
+        }
+
+        if (hr >= 12) {
+            hr = hr - 12;
+            ampm = "PM";
+            if (hr >= 0 && hr < 5) {
+                greeting.innerHTML = "Good AfterNoon";
+                document.body.style.backgroundImage = "url('images/afternoon.webp')";
+
+            } else if (hr >= 5 && hr < 7) {
+                greeting.innerHTML = "Good Evening";
+                document.body.style.backgroundImage = "url('images/evening.webp')";
+
+            } else if (hr >= 7) {
+                greeting.innerHTML = "Good Night";
+                document.body.style.backgroundImage = "url('images/night1.webp')";
+
+            }
+        }
+
+        h = hr == 0 ? hr = 12 : hr;
+
+        hr = hr < 10 ? "0" + hr : hr;
+        min = min < 10 ? "0" + min : min;
+        sec = sec < 10 ? "0" + sec : sec;
+        time.innerHTML = `${hr} : ${min} : ${sec}  ${ampm}`;
+        date1.innerHTML = `${day} ,  ${get_date} / ${month} / ${year}`;
+    }
+
+    setInterval(newtime, 1000);
+</script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</html>
